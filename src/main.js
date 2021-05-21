@@ -3,7 +3,13 @@ var posterTitle = document.querySelector('.poster-title');
 var posterImage = document.querySelector('.poster-img');
 var posterQuote = document.querySelector('.poster-quote');
 var randomButton = document.querySelector('.show-random');
-
+var posterForm = document.querySelector('.poster-form');
+var mainPoster = document.querySelector('.main-poster');
+var formButton = document.querySelector('.show-form');
+var showMain = document.querySelector('.show-main');
+var showSavedButton = document.querySelector('.show-saved');
+var savedPostersPage = document.querySelector('.saved-posters');
+var backFromSavedButton = document.querySelector('.back-to-main');
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -107,12 +113,15 @@ var savedPosters = [];
 var currentPoster;
 
 // event listeners go here 👇
-
 window.addEventListener('load', randomizePoster);
 randomButton.addEventListener('click', randomizePoster);
+formButton.addEventListener('click', displayForm);
+showMain.addEventListener('click', displayMain);
+showSavedButton.addEventListener('click', displaySaved);
+backFromSavedButton.addEventListener('click', backToMain);
+
 
 // functions and event handlers go here 👇
-
 function randomizePoster() {
     posterTitle.innerText = titles[getRandomIndex(titles)];
     posterQuote.innerText = quotes[getRandomIndex(quotes)];
@@ -122,6 +131,26 @@ function randomizePoster() {
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
+
+function displayForm() {
+  posterForm.classList.remove('hidden');
+  mainPoster.classList.add('hidden');
+}
+
+function displayMain() {
+  posterForm.classList.add('hidden');
+  mainPoster.classList.remove('hidden');
+}
+
+function displaySaved() {
+  savedPostersPage.classList.remove('hidden');
+  mainPoster.classList.add('hidden');
+}
+
+function backToMain() {
+  mainPoster.classList.remove('hidden');
+  backFromSavedButton.classList.add('hidden');
+}
 
 // var randomTitleIndex = getRandomIndex(titles); //generates a random
 // posterTitle.innerText = titles[randomTitleIndex]; //reassign
