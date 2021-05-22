@@ -10,12 +10,10 @@ var showMain = document.querySelector('.show-main');
 var showSavedButton = document.querySelector('.show-saved');
 var savedPostersPage = document.querySelector('.saved-posters');
 var backFromSavedButton = document.querySelector('.back-to-main');
-// 5/21/21
 var showDIYPosterButton = document.querySelector('.make-poster');
 var diyImageUrl = document.getElementById('poster-image-url');
 var diyPosterTitle = document.getElementById('poster-title');
 var diyPosterQuote = document.getElementById('poster-quote');
-// var inputTitle = diyPosterTitle.value;
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -160,11 +158,13 @@ function backToMain() {
 
 function generateDIYPoster() {
   event.preventDefault();
+
   var inputTitle = diyPosterTitle.value;
-  titles.push(inputTitle);
   var inputURL = diyImageUrl.value;
-  images.push(inputURL);
   var inputQuote = diyPosterQuote.value;
+
+  titles.push(inputTitle);
+  images.push(inputURL);
   quotes.push(inputQuote);
 
   displayCustomPoster(inputTitle, inputQuote, inputURL);
@@ -174,20 +174,7 @@ function displayCustomPoster(title, quote, url) {
   posterTitle.innerText = title;
   posterQuote.innerText = quote;
   posterImage.src = url;
+
   mainPoster.classList.remove("hidden");
   posterForm.classList.add("hidden");
 };
-
-// function pushToArrays(title, url, quote) {
-//   titles.push(title);
-//   // images.push(url);
-//   // quotes.push(quote);
-// }
-
-//Save button:
-  //-Save data into respective arrays
-    //-capture input elements
-    //-use a method to push data into array
-  //-Use values to create a new instance of the Poster class
-  //-Change back to main poster view
-  //-Display new poster with given properties
