@@ -14,6 +14,10 @@ var showDIYPosterButton = document.querySelector('.make-poster');
 var diyImageUrl = document.getElementById('poster-image-url');
 var diyPosterTitle = document.getElementById('poster-title');
 var diyPosterQuote = document.getElementById('poster-quote');
+var savePosterButton = document.querySelector('.save-poster');
+var savedPostersGrid = document.querySelector('.saved-posters-grid');
+//
+var poster = document.querySelector('.poster');
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -125,6 +129,8 @@ showSavedButton.addEventListener('click', displaySaved);
 backFromSavedButton.addEventListener('click', backToMain);
 showDIYPosterButton.addEventListener('click', generateDIYPoster);
 
+savePosterButton.addEventListener('click', saveCurrentPoster);
+
 // functions and event handlers go here 👇
 function randomizePoster() {
     posterTitle.innerText = titles[getRandomIndex(titles)];
@@ -141,7 +147,7 @@ function displayForm() {
   mainPoster.classList.add('hidden');
 };
 
-function displayMain() {
+function displayMain() {  //REFACTOR
   posterForm.classList.add('hidden');
   mainPoster.classList.remove('hidden');
 };
@@ -151,7 +157,7 @@ function displaySaved() {
   mainPoster.classList.add('hidden');
 };
 
-function backToMain() {
+function backToMain() { //REFACTOR
   mainPoster.classList.remove('hidden');
   backFromSavedButton.classList.add('hidden');
 };
@@ -178,3 +184,42 @@ function displayCustomPoster(title, quote, url) {
   mainPoster.classList.remove("hidden");
   posterForm.classList.add("hidden");
 };
+
+
+function saveCurrentPoster() {
+  currentPoster = new Poster(posterImage.src, posterTitle.innerText, posterQuote.innerText);
+  // Add an edge for not duplicating
+  // loop over currentPoster array
+  for (var i = 0; i < savedPosters.length; i++) {
+    var poster = savedPosters[i];
+    if(poster.imageURL === currentPoster.imageURL && poster.title === currentPoster.title && poster.quote === currentPoster.quote) {
+      return;
+    }
+  }
+  savedPosters.push(currentPoster);
+}
+
+
+//For instance, you can iterate over an array with a for loop and say
+// for every saved poster
+// add (+=) innerHTML that says
+// <section class=“card”>
+// <img scr=“${poster.image}“>
+// </section>
+
+//<div class="mini-poster">
+    //<img class="mini-poster" src ="${codethatlinkstoimage}">
+    //<h2 class="mini-poster">"${codethataccessestitle}"</h2>
+    //<h4> class="mini-poster">$
+
+
+
+
+
+
+
+
+
+
+
+//sapace
