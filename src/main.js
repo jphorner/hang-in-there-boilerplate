@@ -10,6 +10,12 @@ var showMain = document.querySelector('.show-main');
 var showSavedButton = document.querySelector('.show-saved');
 var savedPostersPage = document.querySelector('.saved-posters');
 var backFromSavedButton = document.querySelector('.back-to-main');
+// 5/21/21
+var showDIYPosterButton = document.querySelector('.make-poster');
+var diyImageUrl = document.getElementById('poster-image-url');
+var diyPosterTitle = document.getElementById('poster-title');
+var diyPosterQuote = document.getElementById('poster-quote');
+// var inputTitle = diyPosterTitle.value;
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -119,7 +125,7 @@ formButton.addEventListener('click', displayForm);
 showMain.addEventListener('click', displayMain);
 showSavedButton.addEventListener('click', displaySaved);
 backFromSavedButton.addEventListener('click', backToMain);
-
+showDIYPosterButton.addEventListener('click', generateDIYPoster);
 
 // functions and event handlers go here 👇
 function randomizePoster() {
@@ -135,28 +141,53 @@ function getRandomIndex(array) {
 function displayForm() {
   posterForm.classList.remove('hidden');
   mainPoster.classList.add('hidden');
-}
+};
 
 function displayMain() {
   posterForm.classList.add('hidden');
   mainPoster.classList.remove('hidden');
-}
+};
 
 function displaySaved() {
   savedPostersPage.classList.remove('hidden');
   mainPoster.classList.add('hidden');
-}
+};
 
 function backToMain() {
   mainPoster.classList.remove('hidden');
   backFromSavedButton.classList.add('hidden');
-}
+};
 
-// var randomTitleIndex = getRandomIndex(titles); //generates a random
-// posterTitle.innerText = titles[randomTitleIndex]; //reassign
+function generateDIYPoster() {
+  event.preventDefault();
+  var inputTitle = diyPosterTitle.value;
+  titles.push(inputTitle);
+  var inputURL = diyImageUrl.value;
+  images.push(inputURL);
+  var inputQuote = diyPosterQuote.value;
+  quotes.push(inputQuote);
 
-// var randomQuoteIndex = getRandomIndex(quotes);
-// posterQuote.innerText = quotes[randomQuoteIndex];
+  displayCustomPoster(inputTitle, inputQuote, inputURL);
+};
 
-// var randomImageIndex = getRandomIndex(images);
-// posterImage.src = images[randomImageIndex];
+function displayCustomPoster(title, quote, url) {
+  posterTitle.innerText = title;
+  posterQuote.innerText = quote;
+  posterImage.src = url;
+  mainPoster.classList.remove("hidden");
+  posterForm.classList.add("hidden");
+};
+
+// function pushToArrays(title, url, quote) {
+//   titles.push(title);
+//   // images.push(url);
+//   // quotes.push(quote);
+// }
+
+//Save button:
+  //-Save data into respective arrays
+    //-capture input elements
+    //-use a method to push data into array
+  //-Use values to create a new instance of the Poster class
+  //-Change back to main poster view
+  //-Display new poster with given properties
