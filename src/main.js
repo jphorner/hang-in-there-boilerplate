@@ -16,6 +16,8 @@ var diyPosterTitle = document.getElementById('poster-title');
 var diyPosterQuote = document.getElementById('poster-quote');
 var savePosterButton = document.querySelector('.save-poster');
 var savedPostersGrid = document.querySelector('.saved-posters-grid');
+// var selectedPoster = document.querySelector('.mini-poster');
+
 //
 // var poster = document.querySelector('.poster');
 
@@ -129,6 +131,8 @@ showSavedButton.addEventListener('click', displaySavedPosters); //
 backFromSavedButton.addEventListener('click', backToMain);
 showDIYPosterButton.addEventListener('click', generateDIYPoster);
 savePosterButton.addEventListener('click', saveCurrentPoster);
+savedPostersGrid.addEventListener('dblclick', deleteAndUpdateDisplay);
+// selectedPoster.addEventListener('click', addBorder);
 
 // functions and event handlers go here 👇
 function randomizePoster() {
@@ -195,22 +199,43 @@ function saveCurrentPoster() {
     }
   }
   savedPosters.push(currentPoster);
-}
+};
 
 
 function displaySaved() {
   savedPostersGrid.innerHTML = "";
 
   for (var i = 0; i < savedPosters.length; i++) {
-    savedPostersGrid.innerHTML += `<div class="mini-poster">
-    <img src="${savedPosters[i].imageURL}">
-    <h2>"${savedPosters[i].title}"</h2>
-    <h4>"${savedPosters[i].quote}"</h4>
+    savedPostersGrid.innerHTML += `<div class="mini-poster" id="${savedPosters[i].id}">
+    <img src="${savedPosters[i].imageURL}" id="${savedPosters[i].id}">
+    <h2 id="${savedPosters[i].id}">"${savedPosters[i].title}"</h2>
+    <h4 id="${savedPosters[i].id}">"${savedPosters[i].quote}"</h4>
     </div>`;
   }
 };
 
+function deleteAndUpdateDisplay() {
+  deletePoster(event.target);
+  displaySaved();
+};
 
+function deletePoster(targetOfDoubleClick) {
+  var targetID = targetOfDoubleClick.id;
+  for (var i = 0; i < savedPosters.length; i++) {
+      if (parseInt(targetID) === savedPosters[i].id) {
+        savedPosters.splice(i, 1);
+      }
+  }
+};
 
+//use clearInputs function (or vanilla JS equivalent)
+  //Add this function to the show-my-poster function
 
-//
+// function addBorder() {
+//   selectedPoster.style.border = "thick solid red";
+// }
+
+//using ondblclick, identify current element
+  //execute script
+  //using .closest method, splice selected object
+  //update array to show only remaining posters
