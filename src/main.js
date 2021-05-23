@@ -14,6 +14,10 @@ var showDIYPosterButton = document.querySelector('.make-poster');
 var diyImageUrl = document.getElementById('poster-image-url');
 var diyPosterTitle = document.getElementById('poster-title');
 var diyPosterQuote = document.getElementById('poster-quote');
+var savePosterButton = document.querySelector('.save-poster');
+var savedPostersGrid = document.querySelector('.saved-posters-grid');
+//
+// var poster = document.querySelector('.poster');
 
 // we've provided you with some data to work with 👇
 var images = [
@@ -121,9 +125,10 @@ window.addEventListener('load', randomizePoster);
 randomButton.addEventListener('click', randomizePoster);
 formButton.addEventListener('click', displayForm);
 showMain.addEventListener('click', displayMain);
-showSavedButton.addEventListener('click', displaySaved);
+showSavedButton.addEventListener('click', displaySavedPosters); //
 backFromSavedButton.addEventListener('click', backToMain);
 showDIYPosterButton.addEventListener('click', generateDIYPoster);
+savePosterButton.addEventListener('click', saveCurrentPoster);
 
 // functions and event handlers go here 👇
 function randomizePoster() {
@@ -141,24 +146,24 @@ function displayForm() {
   mainPoster.classList.add('hidden');
 };
 
-function displayMain() {
+function displayMain() {  //REFACTOR
   posterForm.classList.add('hidden');
   mainPoster.classList.remove('hidden');
 };
 
-function displaySaved() {
-  savedPostersPage.classList.remove('hidden');
-  mainPoster.classList.add('hidden');
+function backToMain() { //REFACTOR
+  mainPoster.classList.remove('hidden');
+  savedPostersPage.classList.add('hidden');
 };
 
-function backToMain() {
-  mainPoster.classList.remove('hidden');
-  backFromSavedButton.classList.add('hidden');
-};
+function displaySavedPosters() {
+  savedPostersPage.classList.remove('hidden');
+  mainPoster.classList.add('hidden');
+  displaySaved();
+}
 
 function generateDIYPoster() {
   event.preventDefault();
-
   var inputTitle = diyPosterTitle.value;
   var inputURL = diyImageUrl.value;
   var inputQuote = diyPosterQuote.value;
@@ -178,3 +183,34 @@ function displayCustomPoster(title, quote, url) {
   mainPoster.classList.remove("hidden");
   posterForm.classList.add("hidden");
 };
+
+
+function saveCurrentPoster() {
+  currentPoster = new Poster(posterImage.src, posterTitle.innerText, posterQuote.innerText);
+
+  for (var i = 0; i < savedPosters.length; i++) {
+    var poster = savedPosters[i];
+    if(poster.imageURL === currentPoster.imageURL && poster.title === currentPoster.title && poster.quote === currentPoster.quote) {
+      return;
+    }
+  }
+  savedPosters.push(currentPoster);
+}
+
+
+function displaySaved() {
+  savedPostersGrid.innerHTML = "";
+
+  for (var i = 0; i < savedPosters.length; i++) {
+    savedPostersGrid.innerHTML += `<div class="mini-poster">
+    <img src="${savedPosters[i].imageURL}">
+    <h2>"${savedPosters[i].title}"</h2>
+    <h4>"${savedPosters[i].quote}"</h4>
+    </div>`;
+  }
+};
+
+
+
+
+//
